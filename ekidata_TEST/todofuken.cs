@@ -4,7 +4,7 @@ using System.Net;
 
 namespace ConsoleApp1
 {
-    class Class1
+    class todofuken
     {
         public static void pro1(int code)
         {

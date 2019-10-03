@@ -6,11 +6,11 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    class Class3
+    class rosen
     {
-        public static void pro3(int code)
+        public static void pro2(int code)
         {
-            string url = @"http://www.ekidata.jp/api/g/" + code + ".json";
+            string url = @"http://www.ekidata.jp/api/l/" + code + ".json";
             var wc = new WebClient();
             var json = wc.DownloadString(url);
             json = json.Replace("if(typeof(xml)=='undefined') xml = {};", "");
@@ -19,33 +19,49 @@ namespace ConsoleApp1
             json = json.Replace("\n", "");
 
             var y = JsonConvert.DeserializeObject<Station1>(json);
-            for (int i = 0; i < y.StationG.Length; i++)
+            for (int i = 0; i < y.StationL.Length; i++)
             {
-                Console.WriteLine(y.StationG[i].LineName);
+                Console.Write(y.StationL[i].StationGCd+" ");
+                Console.WriteLine(y.StationL[i].StationName);
             }
         }
         public partial class Station1
         {
-            [JsonProperty("station_g")]
-            public StationG[] StationG { get; set; }
-        }
-
-        public partial class StationG
-        {
-            [JsonProperty("pref_cd")]
-            public long PrefCd { get; set; }
-
             [JsonProperty("line_cd")]
             public long LineCd { get; set; }
 
             [JsonProperty("line_name")]
             public string LineName { get; set; }
 
+            [JsonProperty("line_lon")]
+            public double LineLon { get; set; }
+
+            [JsonProperty("line_lat")]
+            public double LineLat { get; set; }
+
+            [JsonProperty("line_zoom")]
+            public long LineZoom { get; set; }
+
+            [JsonProperty("station_l")]
+            public StationL[] StationL { get; set; }
+        }
+
+        public partial class StationL
+        {
             [JsonProperty("station_cd")]
             public long StationCd { get; set; }
 
+            [JsonProperty("station_g_cd")]
+            public long StationGCd { get; set; }
+
             [JsonProperty("station_name")]
             public string StationName { get; set; }
+
+            [JsonProperty("lon")]
+            public double Lon { get; set; }
+
+            [JsonProperty("lat")]
+            public double Lat { get; set; }
         }
     }
 }
